@@ -30,7 +30,7 @@
 <body>
 
     <!-- START OUR A-FRAME SCENE -->
-    <a-scene loading-screen="backgroundColor: #344A60">
+    <a-scene loading-screen="backgroundColor: #344A60" reflection="directionalLight:a-light#dirlight;" zappar-environment-map>
         <!-- Ask user for camera permissions, display some text if permission is denied -->
         <a-entity zappar-permissions-ui id="permissions"></a-entity>
         <!-- shows a full-page dialog that informs the user they're using an unsupported browser -->
@@ -39,19 +39,40 @@
         <!-- CREATE A-FRAME CAMERA AND REPLACE IT WITH ZAPPAR'S CAMERA -->
         <!-- ALLOW USER TO CLICK ON ELEMENTS BY ADDING CURSOR COMPONENT & IDENTIFY RAYCASTER OBJECTS FOR BETTER PERFORMANCE -->
         <a-camera zappar-camera cursor="rayOrigin: mouse; fuse: false;" raycaster="objects: .collidable"></a-camera>
-
+        
+        <a-light id="dirlight" intensity="1.5" light="castShadow:true;type:directional" position="1 1 10" rotation="50 -30 0"></a-light>
         <!-- SET UP OUR EXPERIENCE AS IMAGE TRACKING & GIVE IT AN IMAGE TO TRACK -->
         <a-entity zappar-image="target: assets/exterior/Image1.zpt">
             <!-- Have a group that will only become visible when the target image comes into view-->
             <a-entity visibility-changer>
 
                 <!-- ZAPPAR LOGO 3D MODEL (OVER BACKGROUND) SOUND EFFECTS OBTAINED FROM https://www.zapsplat.com - STANDARD LICENSE https://www.zapsplat.com/license-type/standard-license/ -->
-                <a-entity id="exterior" gltf-model="assets/exterior.glb" class="collidable" position="0 0 0" rotation="90 90 90" scale="0.09 0.09 0.09" ></a-entity>
+                <a-entity id="exterior" gltf-model="assets/exterior.glb" shadow="receive:true" class="collidable" position="-1.2 -1 0" rotation="90 90 90" scale="0.15 0.15 0.15" ></a-entity>
 
             </a-entity>
             <!-- END VISIBILITY CHANGER -->
         </a-entity>
         <!-- END TRACKING EXPERIENCE -->
+        <a-entity zappar-image="target: assets/exterior/Image2.zpt">
+            <!-- Have a group that will only become visible when the target image comes into view-->
+            <a-entity visibility-changer>
+
+                <!-- ZAPPAR LOGO 3D MODEL (OVER BACKGROUND) SOUND EFFECTS OBTAINED FROM https://www.zapsplat.com - STANDARD LICENSE https://www.zapsplat.com/license-type/standard-license/ -->
+                <a-entity id="gf" gltf-model="assets/gf.glb" shadow="receive:true" class="collidable" position="-1.2 -1 0" rotation="90 90 90" scale="0.15 0.15 0.15" ></a-entity>
+
+            </a-entity>
+            <!-- END VISIBILITY CHANGER -->
+        </a-entity>
+        <a-entity zappar-image="target: assets/exterior/Image3.zpt">
+            <!-- Have a group that will only become visible when the target image comes into view-->
+            <a-entity visibility-changer>
+
+                <!-- ZAPPAR LOGO 3D MODEL (OVER BACKGROUND) SOUND EFFECTS OBTAINED FROM https://www.zapsplat.com - STANDARD LICENSE https://www.zapsplat.com/license-type/standard-license/ -->
+                <a-entity id="ff" gltf-model="assets/ff.glb" shadow="receive:true" class="collidable" position="-1.2 -1 0" rotation="90 90 90" scale="0.15 0.15 0.15" ></a-entity>
+
+            </a-entity>
+            <!-- END VISIBILITY CHANGER -->
+        </a-entity>
     </a-scene> <!-- END SCENE -->
 
 </body>
