@@ -22,6 +22,7 @@
             init: function () {
                 this.el.setAttribute("visible", false)
                 this.el.sceneEl.addEventListener('zappar-visible', () => this.el.setAttribute("visible", true));
+                this.el.sceneEl.addEventListener('zappar-notvisible', () => this.el.setAttribute("visible", false));
             }
         });
     </script>
