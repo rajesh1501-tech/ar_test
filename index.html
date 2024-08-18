@@ -1,80 +1,44 @@
-<!DOCTYPE html>
+<!--
+ Basic example
+-->
 <html>
-<head>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://libs.zappar.com/zappar-aframe/2.0.0/zappar-aframe.js"></script>
-
-    <meta charset="utf-8" />
-    <title>House</title>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/16/Stats.min.js"></script>
+    <script src="../../src/image-target/aframe.js" type="module"></script>
+   
     <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
+      body {
+        margin: 0;
+      }
+      .example-container {
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
     </style>
+  </head>
 
-    <script>
-        // Only show our content when the image becomes visible
-        AFRAME.registerComponent("visibility-changer", {
-            init: function () {
-                this.el.setAttribute("visible", false)
-                this.el.sceneEl.addEventListener('zappar-visible', () => this.el.setAttribute("visible", true));
-                this.el.sceneEl.addEventListener('zappar-notvisible', () => this.el.setAttribute("visible", false));
-            }
-        });
-    </script>
-</head>
-<body>
+  <body>
+    <div class="example-container">
+      <a-scene mindar-image="imageTargetSrc: ./assets/exterior/targets.mind; showStats: true; filterMinCF: 1; filterBeta: 10000; warmupTolerance: 0; missTolerance: 0" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        <a-assets>
+          <img id="card" src="./assets/card-example/card.png" />
+          <a-asset-item id="avatarModel" src="./assets/exterior.glb"></a-asset-item>
+        </a-assets>
 
-    <!-- START OUR A-FRAME SCENE -->
-    <a-scene loading-screen="backgroundColor: #344A60" reflection="directionalLight:a-light#dirlight;" zappar-environment-map>
-        <!-- Ask user for camera permissions, display some text if permission is denied -->
-        <a-entity zappar-permissions-ui id="permissions"></a-entity>
-        <!-- shows a full-page dialog that informs the user they're using an unsupported browser -->
-        <a-entity zappar-compatibility-ui id="compatibility"></a-entity>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <!-- CREATE A-FRAME CAMERA AND REPLACE IT WITH ZAPPAR'S CAMERA -->
-        <!-- ALLOW USER TO CLICK ON ELEMENTS BY ADDING CURSOR COMPONENT & IDENTIFY RAYCASTER OBJECTS FOR BETTER PERFORMANCE -->
-        <a-camera zappar-camera cursor="rayOrigin: mouse; fuse: false;" raycaster="objects: .collidable"></a-camera>
-        
-        <a-light id="dirlight" intensity="1.5" light="castShadow:true;type:directional" position="1 1 10" rotation="50 -30 0"></a-light>
-        <!-- SET UP OUR EXPERIENCE AS IMAGE TRACKING & GIVE IT AN IMAGE TO TRACK -->
-        <a-entity zappar-image="target: assets/exterior/Image1.zpt">
-            <!-- Have a group that will only become visible when the target image comes into view-->
-            <a-entity visibility-changer>
+        <a-entity mindar-image-target="targetIndex: 0">
+          <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
 
-                <!-- ZAPPAR LOGO 3D MODEL (OVER BACKGROUND) SOUND EFFECTS OBTAINED FROM https://www.zapsplat.com - STANDARD LICENSE https://www.zapsplat.com/license-type/standard-license/ -->
-                <a-entity id="exterior" gltf-model="assets/exterior.glb" shadow="receive:true" class="collidable" position="0 -1 0" rotation="0 60 0" scale="0.15 0.15 0.15" ></a-entity>
-
-            </a-entity>
-            <!-- END VISIBILITY CHANGER -->
+          <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
+            animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+          >
         </a-entity>
-        <!-- END TRACKING EXPERIENCE -->
-        <a-entity zappar-image="target: assets/exterior/Image2.zpt">
-            <!-- Have a group that will only become visible when the target image comes into view-->
-            <a-entity visibility-changer>
-
-                <!-- ZAPPAR LOGO 3D MODEL (OVER BACKGROUND) SOUND EFFECTS OBTAINED FROM https://www.zapsplat.com - STANDARD LICENSE https://www.zapsplat.com/license-type/standard-license/ -->
-                <a-entity id="gf" gltf-model="assets/gf.glb" shadow="receive:true" class="collidable" position="0 0 0" rotation="0 0 0" scale="0.05 0.05 0.05" ></a-entity>
-
-            </a-entity>
-            <!-- END VISIBILITY CHANGER -->
-        </a-entity>
-        <a-entity zappar-image="target: assets/exterior/Image3.zpt">
-            <!-- Have a group that will only become visible when the target image comes into view-->
-            <a-entity visibility-changer>
-
-                <!-- ZAPPAR LOGO 3D MODEL (OVER BACKGROUND) SOUND EFFECTS OBTAINED FROM https://www.zapsplat.com - STANDARD LICENSE https://www.zapsplat.com/license-type/standard-license/ -->
-                <a-entity id="ff" gltf-model="assets/ff.glb" shadow="receive:true" class="collidable" position="0 0 0" rotation="0 0 0" scale="0.05 0.05 0.05" ></a-entity>
-
-            </a-entity>
-            <!-- END VISIBILITY CHANGER -->
-        </a-entity>
-    </a-scene> <!-- END SCENE -->
-
-</body>
-
+      </a-scene>
+    </div>
+  </body>
 </html>
